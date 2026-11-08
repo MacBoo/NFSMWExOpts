@@ -11,7 +11,7 @@ jobs:
     - name: Code auschecken
       uses: actions/checkout@v4
 
-    - name: DirectX SDK installieren (Für ältere Spiele-Mods zwingend nötig)
+    - name: DirectX SDK installieren
       run: |
         choco install directxsdk -y
 
@@ -19,11 +19,15 @@ jobs:
       uses: microsoft/setup-msbuild@v2
 
     - name: NuGet-Pakete wiederherstellen
-      run: nuget restore NFSMWExtraOptions.sln
+      run: |
+        $slnPath = Get-ChildItem -Recurse -Filter "*.sln" | Select-Object -First 1 -ExpandProperty FullName
+        Write-Host "Gefundene Projektdatei: $slnPath"
+        nuget restore "$slnPath"
+        echo "SLN_PATH=$slnPath" >> $env:GITHUB_ENV
 
     - name: Projekt kompilieren (32-Bit)
-      run: msbuild NFSMWExtraOptions.sln /p:Configuration=Release /p:Platform=x86 /p:DXSDK_DIR="C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\"
-      # Der hintere Zusatz zwingt den Compiler, das installierte DirectX-Verzeichnis zu finden
+      run: |
+        msbuild "${{ env.SLN_PATH }}" /p:Configuration=Release /p:Platform=x86 /p:DXSDK_DIR="C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\"
 
     - name: Fertige Dateien speichern
       uses: actions/upload-artifact@v4
