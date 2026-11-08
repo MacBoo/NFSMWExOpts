@@ -1,0 +1,29 @@
+name: Online Build (Extra Options)
+
+on:
+  workflow_dispatch: # Ermöglicht es, den Build manuell per Knopfdruck zu starten
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Code auschecken
+      uses: actions/checkout@v4
+
+    - name: MSBuild vorbereiten
+      uses: microsoft/setup-msbuild@v2
+
+    - name: NuGet-Pakete wiederherstellen
+      run: nuget restore NFSMWExtraOptions.sln
+
+    - name: Projekt kompilieren (32-Bit)
+      run: msbuild NFSMWExtraOptions.sln /p:Configuration=Release /p:Platform=x86
+
+    - name: Fertige Dateien speichern
+      uses: actions/upload-artifact@v4
+      with:
+        name: NFSMW-ExtraOptions-Release
+        path: |
+          **/Release/*.dll
+          **/Release/*.asi
