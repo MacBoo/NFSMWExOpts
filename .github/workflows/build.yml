@@ -1,7 +1,7 @@
 name: Online Build (Extra Options)
 
 on:
-  workflow_dispatch: # Ermöglicht es, den Build manuell per Knopfdruck zu starten
+  workflow_dispatch:
 
 jobs:
   build:
@@ -11,6 +11,10 @@ jobs:
     - name: Code auschecken
       uses: actions/checkout@v4
 
+    - name: DirectX SDK installieren (Für ältere Spiele-Mods zwingend nötig)
+      run: |
+        choco install directxsdk -y
+
     - name: MSBuild vorbereiten
       uses: microsoft/setup-msbuild@v2
 
@@ -18,7 +22,8 @@ jobs:
       run: nuget restore NFSMWExtraOptions.sln
 
     - name: Projekt kompilieren (32-Bit)
-      run: msbuild NFSMWExtraOptions.sln /p:Configuration=Release /p:Platform=x86
+      run: msbuild NFSMWExtraOptions.sln /p:Configuration=Release /p:Platform=x86 /p:DXSDK_DIR="C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\"
+      # Der hintere Zusatz zwingt den Compiler, das installierte DirectX-Verzeichnis zu finden
 
     - name: Fertige Dateien speichern
       uses: actions/upload-artifact@v4
