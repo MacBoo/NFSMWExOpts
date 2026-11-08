@@ -11,7 +11,7 @@ jobs:
     - name: Code auschecken
       uses: actions/checkout@v4
 
-    - name: DirectX SDK installieren (Name korrigiert)
+    - name: DirectX SDK installieren
       run: |
         choco install directx-sdk -y
 
@@ -20,14 +20,11 @@ jobs:
 
     - name: NuGet-Pakete wiederherstellen
       run: |
-        $slnPath = Get-ChildItem -Recurse -Filter "*.sln" | Select-Object -First 1 -ExpandProperty FullName
-        Write-Host "Gefundene Projektdatei: $slnPath"
-        nuget restore "$slnPath"
-        echo "SLN_PATH=$slnPath" >> $env:GITHUB_ENV
+        nuget restore NFSMWExtraOptions/NFSMWExtraOptions.sln
 
     - name: Projekt kompilieren (32-Bit)
       run: |
-        msbuild "${{ env.SLN_PATH }}" /p:Configuration=Release /p:Platform=x86 /p:DXSDK_DIR="C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\"
+        msbuild NFSMWExtraOptions/NFSMWExtraOptions.sln /p:Configuration=Release /p:Platform=x86 /p:DXSDK_DIR="C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\"
 
     - name: Fertige Dateien speichern
       uses: actions/upload-artifact@v4
