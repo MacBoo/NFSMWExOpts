@@ -20,7 +20,7 @@ jobs:
 
     - name: NuGet-Pakete wiederherstellen
       run: |
-        nuget restore https://github.com/MacBoo/NFSMWExOpts/tree/master/NFSMWExtraOptions/NFSMWExtraOptions.sln
+        nuget restore NFSMWExtraOptions/NFSMWExtraOptions.sln
 
     - name: Projekt kompilieren (32-Bit)
       run: |
