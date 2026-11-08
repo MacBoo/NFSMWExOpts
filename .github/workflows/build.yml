@@ -11,9 +11,9 @@ jobs:
     - name: Code auschecken
       uses: actions/checkout@v4
 
-    - name: DirectX SDK installieren
+    - name: DirectX SDK installieren (Name korrigiert)
       run: |
-        choco install directxsdk -y
+        choco install directx-sdk -y
 
     - name: MSBuild vorbereiten
       uses: microsoft/setup-msbuild@v2
