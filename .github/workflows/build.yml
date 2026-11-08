@@ -20,11 +20,11 @@ jobs:
 
     - name: NuGet-Pakete wiederherstellen
       run: |
-        nuget restore NFSMWExtraOptions/NFSMWExtraOptions.sln
+        nuget restore https://github.com/MacBoo/NFSMWExOpts/tree/master/NFSMWExtraOptions/NFSMWExtraOptions.sln
 
     - name: Projekt kompilieren (32-Bit)
       run: |
-        msbuild https://github.com/MacBoo/NFSMWExOpts/tree/master/NFSMWExtraOptions/NFSMWExtraOptions.sln /p:Configuration=Release /p:Platform=x86 /p:DXSDK_DIR="C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\"
+        msbuild NFSMWExtraOptions/NFSMWExtraOptions.sln /p:Configuration=Release /p:Platform=x86 /p:DXSDK_DIR="C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\"
 
     - name: Fertige Dateien speichern
       uses: actions/upload-artifact@v4
