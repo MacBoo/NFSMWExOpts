@@ -32,5 +32,5 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: NFSMW-ExtraOptions-Release
-        path: NFSMWExtraOptions.asi      
+        path: D:/a/NFSMWExOpts/NFSMWExOpts/NFSMWExtraOptions/Release/NFSMWExtraOptions/scripts/NFSMWExtraOptions.asi    
 
