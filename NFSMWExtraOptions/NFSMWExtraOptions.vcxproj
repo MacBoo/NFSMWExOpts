@@ -64,10 +64,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>copy "$(TargetDir)*.asi" "G:\Games\Need for Speed Most Wanted\scripts"  /y
-copy "$(TargetDir)*.pdb" "G:\Games\Need for Speed Most Wanted\scripts"  /y</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -86,9 +82,6 @@ copy "$(TargetDir)*.pdb" "G:\Games\Need for Speed Most Wanted\scripts"  /y</Comm
       <OptimizeReferences>true</OptimizeReferences>
       <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
-    <PostBuildEvent>
-      <Command>copy "$(TargetDir)*.asi" "G:\Games\Need for Speed Most Wanted\scripts"  /y</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CodeCaves.h" />
